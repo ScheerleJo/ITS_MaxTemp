@@ -21,18 +21,17 @@ namespace ITS_MaxTemp.Model
 {
     public class TemperatureData
     {
-        private const string filePath = "./ExampleData";
-        private const string fileName = "tempsNew.csv";
+        private string filePath;
+        private string fileName;
         private List<string> rawData;
 
+        public List<string> RawData { get {return rawData;}}
 
-
-        public TemperatureData()
+        public TemperatureData(string filePath, string fileName)
         {
-            
+            this.filePath = filePath;
+            this.fileName = fileName;
         }
-
-
 
         private void ReadFile()
         {
@@ -40,8 +39,7 @@ namespace ITS_MaxTemp.Model
             {
                 using (StreamReader sr = new StreamReader(filePath + fileName))
                 {
-                    string line;
-                    int i = 0; 
+                    string line; 
                     while((line = sr.ReadLine()) != null)
                     {
                         rawData.Add(line);
