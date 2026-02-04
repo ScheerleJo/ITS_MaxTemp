@@ -25,6 +25,7 @@ namespace ITS_MaxTemp
         public MainWindow()
         {
             InitializeComponent();
+            tempData = new TemperatureData("./Data", "temps.csv");
         }
     }
 }
