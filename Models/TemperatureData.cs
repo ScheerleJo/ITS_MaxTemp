@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace ITS_MaxTemp.Models
 {
+    enum TemperatureDataColumns {
+        Sensor,
+        Date,
+        Time,
+        Temperature
+    }
     internal class TemperatureData
     {
         private string filePath;
@@ -26,7 +32,7 @@ namespace ITS_MaxTemp.Models
         {
             try
             {
-                using (StreamReader sr = new StreamReader(filePath + fileName))
+                using (StreamReader sr = new StreamReader(filePath+ "/" + fileName))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -39,6 +45,15 @@ namespace ITS_MaxTemp.Models
             {
                 Console.WriteLine("Error reading Data: ");
                 Console.WriteLine(e.Message);
+            }
+        }
+
+        private void ParseData()
+        {
+            foreach (var line in rawData)
+            {
+                var split = line.Split(' ');
+
             }
         }
     }
