@@ -23,6 +23,7 @@ namespace ITS_MaxTemp
         public MainWindow()
         {
             InitializeComponent();
+            DataAccess.InitializeDatabase();
         }
     }
 }
