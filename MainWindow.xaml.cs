@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITS_MaxTemp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace ITS_MaxTemp
     /// </summary>
     public partial class MainWindow : Window
     {
+        TemperatureData tempData;
         public MainWindow()
         {
             InitializeComponent();
