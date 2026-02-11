@@ -25,7 +25,18 @@ namespace ITS_MaxTemp
         public MainWindow()
         {
             InitializeComponent();
-            tempData = new TemperatureData("./Data", "temps.csv");
+            tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+            MessageBox.Show($"Anzahl Zeilen: {tempData.RawData.Count}");
+
+            if (tempData.RawData.Count > 0)
+            {
+                testLabel.Content = tempData.RawData[0];
+            }
+            else
+            {
+                testLabel.Content = "Keine Daten geladen!";
+            }
+
         }
     }
 }

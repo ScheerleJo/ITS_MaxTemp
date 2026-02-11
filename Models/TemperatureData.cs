@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ITS_MaxTemp.Models
 {
@@ -17,7 +18,7 @@ namespace ITS_MaxTemp.Models
     {
         private string filePath;
         private string fileName;
-        private List<string> rawData;
+        private List<string> rawData = new List<string>();
 
         public List<string> RawData { get { return rawData; } }
 
@@ -32,7 +33,7 @@ namespace ITS_MaxTemp.Models
         {
             try
             {
-                using (StreamReader sr = new StreamReader(filePath+ "/" + fileName))
+                using (StreamReader sr = new StreamReader(filePath+ @"\" + fileName))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -43,8 +44,7 @@ namespace ITS_MaxTemp.Models
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading Data: ");
-                Console.WriteLine(e.Message);
+                MessageBox.Show($"Error reading Data: {e.Message}\n\nPfad: {Path.Combine(filePath, fileName)}");
             }
         }
 
