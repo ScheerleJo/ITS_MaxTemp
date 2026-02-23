@@ -16,18 +16,63 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <StackPanel Grid.Column="0" Margin="0,0,0,8">
+
+            <TextBlock Text="Max Temp" 
+                       Style="{StaticResource HeaderTextBlockStyle}" 
+                       Margin="0,0,0,28"/>
+
+            <TextBlock Text="Sensor auswählen" 
+                       Margin="0,0,0,4"/>
+            <ComboBox Margin="0,4,0,20" 
+                      MinHeight="32" 
+                      MinWidth="320">
+                <ComboBoxItem Content="Sensor 1"/>
+                <ComboBoxItem Content="Sensor 2"/>
+            </ComboBox>
+
+            <StackPanel Orientation="Horizontal" 
+                        Margin="0,0,0,24">
+                <StackPanel>
+                    <TextBlock Text="Von" 
+                               Margin="0,0,0,4"/>
+                    <DatePicker Margin="0,4,0,0" 
+                                MinHeight="32" 
+                                MinWidth="154"/>
+                </StackPanel>
+
+                <StackPanel Margin="12,0,0,0">
+                    <TextBlock Text="Bis" 
+                               Margin="0,0,0,4"/>
+                    <DatePicker Margin="0,4,0,0" 
+                                MinHeight="32" 
+                                MinWidth="154"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Button Content="Daten auswerten" 
+                    Style="{StaticResource AccentButtonStyle}" 
+                    MinHeight="36" 
+                    MinWidth="320" 
+                    Margin="0,0,0,28"/>
+
+            <TextBlock Text="Geladene Datei:" 
+                       FontSize="12" 
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}" 
+                       Margin="0,0,0,8"/>
+            <TextBlock Text="temps.csv" 
+                       FontSize="12" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,12"/>
+            
+            <Button Content="Datei hochladen" 
+                    MinHeight="36" 
+                    MinWidth="320"/>
 
 
-        <!-- Rechte Seite -->
-        <Grid Grid.Column="2"
-      Margin="0,0,0,8">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2" Margin="0,0,0,8">
 
             <!-- Kopfbereich -->
             <Grid Grid.Row="0">
@@ -40,8 +85,8 @@
 
                 <!-- Überschrift -->
                 <TextBlock Text="Auswertung"
-                   VerticalAlignment="Center"
-                   FontSize="16"/>
+                    VerticalAlignment="Center"
+                    FontSize="16"/>
 
                 <!-- Max Temperatur Button -->
                 <Button Grid.Column="1"
@@ -59,9 +104,9 @@
 
             <!-- Beschriftung -->
             <TextBlock Grid.Row="2"
-               Text="Maximale Temperatur:"
-               Margin="0,40,0,20"
-               FontSize="14"/>
+                Text="Maximale Temperatur:"
+                Margin="0,40,0,20"
+                FontSize="14"/>
 
             <!-- Hauptanzeige -->
             <StackPanel Grid.Row="3"
@@ -69,19 +114,18 @@
                 HorizontalAlignment="Center">
 
                 <TextBlock Text="47,3 °C"
-                   FontSize="96"
-                   FontWeight="Light"
-                   HorizontalAlignment="Center"/>
+                    FontSize="96"
+                    FontWeight="Light"
+                    HorizontalAlignment="Center"/>
 
                 <TextBlock Text="gemessen am 04.02.2026 14:30"
-                   FontSize="20"
-                   Margin="0,20,0,0"
-                   HorizontalAlignment="Center"
-                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    FontSize="20"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
 
             </StackPanel>
-
-        </Grid>
+        </StackPanel>
 
     </Grid>
 </Window>
