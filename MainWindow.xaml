@@ -71,5 +71,61 @@
 
 
         </StackPanel>
+        
+        <StackPanel Grid.Column="2" Margin="0,0,0,8">
+
+            <!-- Kopfbereich -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Überschrift -->
+                <TextBlock Text="Auswertung"
+                    VerticalAlignment="Center"
+                    FontSize="16"/>
+
+                <!-- Max Temperatur Button -->
+                <Button Grid.Column="1"
+                Content="Maximale Temperatur"
+                Style="{StaticResource AccentButtonStyle}"
+                MinHeight="36"
+                Padding="20,6"/>
+
+                <!-- Diagramm Button -->
+                <Button Grid.Column="3"
+                Content="Diagramm anzeigen"
+                MinHeight="36"
+                Padding="20,6"/>
+            </Grid>
+
+            <!-- Beschriftung -->
+            <TextBlock Grid.Row="2"
+                Text="Maximale Temperatur:"
+                Margin="0,40,0,20"
+                FontSize="14"/>
+
+            <!-- Hauptanzeige -->
+            <StackPanel Grid.Row="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center">
+
+                <TextBlock Text="47,3 °C"
+                    FontSize="96"
+                    FontWeight="Light"
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock Text="gemessen am 04.02.2026 14:30"
+                    FontSize="20"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Window>
