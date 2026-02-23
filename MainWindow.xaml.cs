@@ -26,16 +26,19 @@ namespace ITS_MaxTemp
         string path = "";
         public MainWindow()
         {
-            InitializeComponent();
-            
-            //TODO: Reagieren auf einen anderen Dateipfad
-            tempData = new TemperatureData(@".\Data", "temps.csv");
-            FilePath.Text = "temps.csv";
-            
+            InitializeComponent();     
             DataAccess.InitializeDatabase();
         }
 
-
+        private void setFilePath() {
+            if (path == "")
+            {
+                tempData = new TemperatureData(@".\Data", "temps.csv"); // TODO: Reagieren auf bereits reingeladene File, sonst überladen´ständig unsere Datenbank mit den gleichen Daten
+                return;
+            }
+            FilePath.Text = path;
+            tempData = new TemperatureData(path);
+        }
         private void UploadFile_Click(object sender, RoutedEventArgs e)
         {
            OpenFileDialog openFileDialog = new OpenFileDialog(){
@@ -46,8 +49,11 @@ namespace ITS_MaxTemp
             {
                 path = openFileDialog.FileName;
             }
+        }
+
         private void EvaluateDataClick(object sender, RoutedEventArgs e)
         {
+            setFilePath(); //-> Muss in dieser Funktion aufgerufen werden, verschiebe es nach belieben 
             string selectedSensor = (SensorComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             DateTime? fromDate = FromDatePicker.SelectedDate;
             DateTime? toDate = ToDatePicker.SelectedDate;

@@ -19,7 +19,7 @@ namespace ITS_MaxTemp.Models
         public List<string> RawData { get { return rawData; } }
         public List<DataSet> DataSets { get { return dataSets; } }
 
-        public TemperatureData(string filePath, string fileName)
+        public TemperatureData(string filePath, string fileName = "")
         {
             this.filePath = filePath;
             this.fileName = fileName;
