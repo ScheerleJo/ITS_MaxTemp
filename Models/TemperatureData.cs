@@ -5,28 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace ITS_MaxTemp.Models
 {
-    enum TemperatureDataColumns {
-        Sensor,
-        Date,
-        Time,
-        Temperature
-    }
     internal class TemperatureData
     {
         private string filePath;
         private string fileName;
         private List<string> rawData = new List<string>();
+        private List<DataSet> dataSets = new List<DataSet>();
 
         public List<string> RawData { get { return rawData; } }
+        public List<DataSet> DataSets { get { return dataSets; } }
 
         public TemperatureData(string filePath, string fileName)
         {
             this.filePath = filePath;
             this.fileName = fileName;
             ReadFile();
+            ParseData();
         }
 
         private void ReadFile()
@@ -50,10 +48,33 @@ namespace ITS_MaxTemp.Models
 
         private void ParseData()
         {
+            Regex sensorPattern = new Regex("S*");
+            Regex temperaturePattern = new Regex("[0-9]+\\.[0-9]+");
+
             foreach (var line in rawData)
             {
-                var split = line.Split(' ');
-
+                var split = line.Split(',');
+                DataSet dataSet;
+                string sensor = "";
+                DateTime dateTime = DateTime.Now;
+                float temperature = 0.0f;
+                foreach (var data in split)
+                {
+                    if (sensorPattern.IsMatch(data))
+                    {
+                        sensor = data;
+                    }
+                    else if (temperaturePattern.IsMatch(data))
+                    {
+                        float.TryParse(data, out temperature);
+                    }
+                    else
+                    {
+                        dateTime = DateTime.Parse(data);
+                    }
+                }
+                dataSet = new DataSet(sensor, dateTime, temperature);
+                dataSets.Add(dataSet);
             }
         }
     }
