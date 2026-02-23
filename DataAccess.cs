@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Controls.Primitives;
 
 namespace ITS_MaxTemp
 {
@@ -19,7 +18,7 @@ namespace ITS_MaxTemp
             Properties.Settings.Default.Save();
 
             using (var db = new SqliteConnection($"Filename={Properties.Settings.Default["dbPath"]}"))
-            { 
+            {
                 db.Open();
 
                 string tableCommand = "CREATE TABLE IF NOT " +
@@ -31,6 +30,7 @@ namespace ITS_MaxTemp
                 var createTable = new SqliteCommand(tableCommand, db);
 
                 createTable.ExecuteReader();
+                db.Close();
             }
         }
 
@@ -49,12 +49,13 @@ namespace ITS_MaxTemp
                 insertCommand.Parameters.AddWithValue("@Datetime", dateTime);
                 insertCommand.Parameters.AddWithValue("@Temperature", temperature);
                 insertCommand.ExecuteReader();
+                db.Close();
             }
         }
 
-        public static void GetData(string sensor = null)
+        public static List<string> GetData(string sensor = null)
         {
-            //var entries = new List<string>();
+            var entries = new List<string>();
             using (var db = new SqliteConnection($"Filename={Properties.Settings.Default["dbPath"]}"))
             {
                 db.Open();
@@ -66,10 +67,11 @@ namespace ITS_MaxTemp
 
                 while (query.Read())
                 {
-                    //entries.Add(query.GetString(0));
+                    entries.Add(query.GetString(0));
                 }
+                db.Close();
             }
-            //return entries;
+            return entries;
         }
     }
 }
