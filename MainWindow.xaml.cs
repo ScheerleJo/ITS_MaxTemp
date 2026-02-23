@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ITS_MaxTemp.Models;
+using Microsoft.Win32;
 
 namespace ITS_MaxTemp
 {
@@ -22,12 +23,29 @@ namespace ITS_MaxTemp
     public partial class MainWindow : Window
     {
         TemperatureData tempData;
+        string path = "";
         public MainWindow()
         {
             InitializeComponent();
+            
+            //TODO: Reagieren auf einen anderen Dateipfad
             tempData = new TemperatureData(@".\Data", "temps.csv");
+            FilePath.Text = "temps.csv";
+            
             DataAccess.InitializeDatabase();
+        }
 
+
+        private void UploadFile_Click(object sender, RoutedEventArgs e)
+        {
+           OpenFileDialog openFileDialog = new OpenFileDialog(){
+               Filter = "CSV files (*.csv)|*.csv"
+           };
+
+            if(openFileDialog.ShowDialog() == true)
+            {
+                path = openFileDialog.FileName;
+            }
         }
     }
 }
