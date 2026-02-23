@@ -72,11 +72,13 @@
             <TextBlock Text="temps.csv" 
                        FontSize="12" 
                        FontWeight="Bold"
-                       Margin="0,0,0,12"/>
+                       Margin="0,0,0,12"
+                       x:Name="FilePath"/>
             
             <Button Content="Datei hochladen" 
                     MinHeight="36" 
-                    MinWidth="320"/>
+                    MinWidth="320"
+                    Click="UploadFile_Click"/>
 
 
         </StackPanel>
