@@ -1,5 +1,4 @@
-﻿using ITS_MaxTemp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ITS_MaxTemp.Models;
 
 namespace ITS_MaxTemp
 {
@@ -25,7 +25,7 @@ namespace ITS_MaxTemp
         public MainWindow()
         {
             InitializeComponent();
-            tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+            tempData = new TemperatureData(@".\Data", "temps.csv");
             DataAccess.InitializeDatabase();
 
         }
