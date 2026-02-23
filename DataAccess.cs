@@ -1,77 +1,73 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Data.SQLite;
 using System.IO;
+using System.Diagnostics;
 
 namespace ITS_MaxTemp
 {
     internal class DataAccess
     {
+        private static string connectionString = @"Data Source=.\maxTemp.db;Version=3;";
 
-        public async static void InitializeDatabase()
-        {
-
-            string cwd = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            Properties.Settings.Default["LocalPath"] = cwd;
-            Properties.Settings.Default["dbPath"] = Path.Combine(cwd, "maxTemp.db");
-            Properties.Settings.Default.Save();
-
-            using (var db = new SqliteConnection($"Filename={Properties.Settings.Default["dbPath"]}"))
+        public static void InitializeDatabase()
+        { 
+            if (!File.Exists(@".\maxTemp.db"))
+            {
+                SQLiteConnection.CreateFile(@".\maxTemp.db");
+            }
+            using (var db = new SQLiteConnection(connectionString))
             {
                 db.Open();
+                string tableCommand = @"CREATE TABLE IF NOT EXISTS tempData (
+                    Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Sensor NVARCHAR(2) NOT NULL, 
+                    Datetime DATETIME NOT NULL, 
+                    Temperature DOUBLE NOT NULL
+                );";
 
-                string tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS ITS_MaxTempDB (Primary_Key INTEGER PRIMARY KEY, " +
-                    "Sensor NVARCHAR(2) NOT NULL, " +
-                    "Datetime DATETIME NOT NULL, " +
-                    "Temperature DOUBLE NOT NULL)";
-
-                var createTable = new SqliteCommand(tableCommand, db);
-
-                createTable.ExecuteReader();
-                db.Close();
+                using (var cmd = new SQLiteCommand(db))
+                {
+                    cmd.CommandText = tableCommand;
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
         public static void AddData(string sensor, DateTime dateTime, double temperature)
         {
-            using (var db = new SqliteConnection($"Filename={Properties.Settings.Default["dbPath"]}"))
+            using (var db = new SQLiteConnection(connectionString))
             {
                 db.Open();
 
-                var insertCommand = new SqliteCommand();
-                insertCommand.Connection = db;
-
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO ITS_MaxTempDB (Primary_Key, Sensor, Datetime, Temperature) VALUES (NULL, @Sensor, @Datetime, @Temperature);";
-                insertCommand.Parameters.AddWithValue("@Sensor", sensor);
-                insertCommand.Parameters.AddWithValue("@Datetime", dateTime);
-                insertCommand.Parameters.AddWithValue("@Temperature", temperature);
-                insertCommand.ExecuteReader();
-                db.Close();
+                using (SQLiteCommand cmd = new SQLiteCommand(db))
+                { 
+                    cmd.CommandText = @"INSERT INTO tempData (Sensor, Datetime, Temperature) VALUES (@Sensor, @Datetime, @Temperature);";
+                    cmd.Parameters.AddWithValue("@Sensor", sensor);
+                    cmd.Parameters.AddWithValue("@Datetime", dateTime);
+                    cmd.Parameters.AddWithValue("@Temperature", temperature);
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+                }
             }
         }
 
-        public static List<string> GetData(string sensor = null)
+        public static void getData()
         {
-            var entries = new List<string>();
-            using (var db = new SqliteConnection($"Filename={Properties.Settings.Default["dbPath"]}"))
+            using (var db = new SQLiteConnection(connectionString))
             {
                 db.Open();
-                string select = "SELECT Sensor, Datetime, Temperature FROM ITS_MaxTempDB";
-                if (sensor != null) select = "SELECT Sensor, Datetime, Temperature FROM ITS_MaxTempDB WHERE Sensor = " + sensor;
-
-                var selectCommand = new SqliteCommand(select, db);
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
+                string select = "SELECT Sensor, Datetime, Temperature FROM tempData";
+                using (var cmd = new SQLiteCommand(select, db))
                 {
-                    entries.Add(query.GetString(0));
+                    using (SQLiteDataReader query = cmd.ExecuteReader())
+                    {
+                        while (query.Read())
+                        {
+                            Debug.WriteLine($"Sensor: {query.GetString(0)}, Datetime: {query.GetDateTime(1)}, Temperature: {query.GetDouble(2)}");
+                        }
+                    }
                 }
-                db.Close();
             }
-            return entries;
         }
     }
 }
