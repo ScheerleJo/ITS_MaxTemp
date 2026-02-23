@@ -27,7 +27,29 @@ namespace ITS_MaxTemp
             InitializeComponent();
             tempData = new TemperatureData(@".\Data", "temps.csv");
             DataAccess.InitializeDatabase();
+        }
 
+        private void EvaluateDataClick(object sender, RoutedEventArgs e)
+        {
+            string selectedSensor = (SensorComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            DateTime? fromDate = FromDatePicker.SelectedDate;
+            DateTime? toDate = ToDatePicker.SelectedDate;
+
+            Console.WriteLine($"Sensor: {selectedSensor}\nFrom: {fromDate}\nTo: {toDate}", "Evaluate Data");
+            // Filterung fuer Josia von Sensor und Zeit, also bitte noch hier Funktionen implementieren mit DB
+            // Vielleicht muessen beide Buttons die hier aufgelistet sind die gleiche Funktion aufrufen -> Also auswerten button muss halt gemacht werden (sql statement mit den werten aus den vars von oben)
+        }
+
+
+        private void MaxTemperatureClick(object sender, RoutedEventArgs e)
+        {
+            string selectedSensor = (SensorComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            DateTime? fromDate = FromDatePicker.SelectedDate;
+            DateTime? toDate = ToDatePicker.SelectedDate;
+
+            // Example for Josia -> SQL Befehl
+            TemperatureTextBlock.Text = "XXXXX";
+            DateTextBlock.Text = "XXXXX";
         }
     }
 }
