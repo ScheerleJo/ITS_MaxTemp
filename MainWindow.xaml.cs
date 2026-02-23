@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ITS_MaxTemp.Models;
 
 namespace ITS_MaxTemp
 {
@@ -20,12 +21,17 @@ namespace ITS_MaxTemp
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TemperatureData tempData;
+        TemperatureData tempData;
         public MainWindow()
         {
             InitializeComponent();
-            //tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+<<<<<<< HEAD
+            tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+            DataAccess.InitializeDatabase();
+=======
+            //tempData = new TemperatureData(@".\Data", "temps.csv");
             //DataAccess.InitializeDatabase();
+>>>>>>> 6fe337be58cb4ca9a3bc1e7b175dece81bce70c3
 
         }
     }
