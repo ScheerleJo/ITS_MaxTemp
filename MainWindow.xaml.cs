@@ -46,6 +46,19 @@ namespace ITS_MaxTemp
             {
                 path = openFileDialog.FileName;
             }
+        private void EvaluateDataClick(object sender, RoutedEventArgs e)
+        {
+            string selectedSensor = (SensorComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            DateTime? fromDate = FromDatePicker.SelectedDate;
+            DateTime? toDate = ToDatePicker.SelectedDate;
+
+            Console.WriteLine($"Sensor: {selectedSensor}\nFrom: {fromDate}\nTo: {toDate}", "Evaluate Data");
+            // Filterung fuer Josia von Sensor und Zeit, also bitte noch hier Funktionen implementieren mit DB
+            // -> Also auswerten button muss halt gemacht werden (sql statement mit den werten aus den vars von oben)
+
+            TemperatureTextBlock.Text = "XXXXX";
+            DateTextBlock.Text = "XXXXX";
         }
+
     }
 }

@@ -24,7 +24,8 @@
 
             <TextBlock Text="Sensor auswählen" 
                        Margin="0,0,0,4"/>
-            <ComboBox Margin="0,4,0,20" 
+            <ComboBox x:Name="SensorComboBox"
+                      Margin="0,4,0,20" 
                       MinHeight="32" 
                       MinWidth="320"
                       SelectedIndex="0">
@@ -41,7 +42,8 @@
                 <StackPanel>
                     <TextBlock Text="Von" 
                                Margin="0,0,0,4"/>
-                    <DatePicker Margin="0,4,0,0" 
+                    <DatePicker x:Name="FromDatePicker"
+                                Margin="0,4,0,0" 
                                 MinHeight="32" 
                                 MinWidth="154"/>
                 </StackPanel>
@@ -49,13 +51,15 @@
                 <StackPanel Margin="12,0,0,0">
                     <TextBlock Text="Bis" 
                                Margin="0,0,0,4"/>
-                    <DatePicker Margin="0,4,0,0" 
+                    <DatePicker x:Name="ToDatePicker"
+                                Margin="0,4,0,0" 
                                 MinHeight="32" 
                                 MinWidth="154"/>
                 </StackPanel>
             </StackPanel>
 
             <Button Content="Daten auswerten" 
+                    Click="EvaluateDataClick"
                     Style="{StaticResource AccentButtonStyle}" 
                     MinHeight="36" 
                     MinWidth="320" 
@@ -95,13 +99,7 @@
                     VerticalAlignment="Center"
                     FontSize="16"/>
 
-                <!-- Max Temperatur Button -->
-                <Button Grid.Column="3"
-                Content="Maximale Temperatur"
-                Style="{StaticResource AccentButtonStyle}"
-                MinHeight="36"
-                Padding="20,6"/>
-
+                
             
             </Grid>
 
@@ -116,12 +114,14 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center">
 
-                <TextBlock Text="47,3 °C"
+                <TextBlock x:Name="TemperatureTextBlock"
+                    Text="47,3 °C"
                     FontSize="96"
                     FontWeight="Light"
                     HorizontalAlignment="Center"/>
 
-                <TextBlock Text="gemessen am 04.02.2026 14:30"
+                <TextBlock x:Name="DateTextBlock"
+                    Text="gemessen am 04.02.2026 14:30"
                     FontSize="20"
                     Margin="0,20,0,0"
                     HorizontalAlignment="Center"
