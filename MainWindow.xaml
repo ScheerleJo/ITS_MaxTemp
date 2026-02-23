@@ -16,21 +16,33 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0"
-                    Margin="0,0,0,8">
+        <StackPanel Grid.Column="0" Margin="0,0,0,8">
 
-            <TextBlock Text="Max Temp"
-                       Style="{StaticResource HeaderTextBlockStyle}"
+            <TextBlock Text="Max Temp" 
+                       Style="{StaticResource HeaderTextBlockStyle}" 
                        Margin="0,0,0,28"/>
 
-            <TextBlock Text="Sensor auswählen"
+            <TextBlock Text="Sensor auswählen" 
                        Margin="0,0,0,4"/>
-            <ComboBox Margin="0,4,0,20"
-                      MinHeight="32"
+            <ComboBox Margin="0,4,0,20" 
+                      MinHeight="32" 
                       MinWidth="320">
                 <ComboBoxItem Content="Sensor 1"/>
                 <ComboBoxItem Content="Sensor 2"/>
             </ComboBox>
+
+            <TextBlock Text="Geladene Datei:" 
+                       FontSize="12" 
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}" 
+                       Margin="0,0,0,8"/>
+            <TextBlock Text="temps.csv" 
+                       FontSize="12" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,12"/>
+            
+            <Button Content="Datei hochladen" 
+                    MinHeight="36" 
+                    MinWidth="320"/>
 
 
         </StackPanel>
