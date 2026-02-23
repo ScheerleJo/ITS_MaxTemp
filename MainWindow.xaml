@@ -26,9 +26,14 @@
                        Margin="0,0,0,4"/>
             <ComboBox Margin="0,4,0,20" 
                       MinHeight="32" 
-                      MinWidth="320">
-                <ComboBoxItem Content="Sensor 1"/>
-                <ComboBoxItem Content="Sensor 2"/>
+                      MinWidth="320"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="S1"/>
+                <ComboBoxItem Content="S2"/>
+                <ComboBoxItem Content="S3"/>
+                <ComboBoxItem Content="S4"/>
+                <ComboBoxItem Content="SB"/>
+                <ComboBoxItem Content="SD"/>
             </ComboBox>
 
             <StackPanel Orientation="Horizontal" 
@@ -89,17 +94,13 @@
                     FontSize="16"/>
 
                 <!-- Max Temperatur Button -->
-                <Button Grid.Column="1"
+                <Button Grid.Column="3"
                 Content="Maximale Temperatur"
                 Style="{StaticResource AccentButtonStyle}"
                 MinHeight="36"
                 Padding="20,6"/>
 
-                <!-- Diagramm Button -->
-                <Button Grid.Column="3"
-                Content="Diagramm anzeigen"
-                MinHeight="36"
-                Padding="20,6"/>
+            
             </Grid>
 
             <!-- Beschriftung -->
