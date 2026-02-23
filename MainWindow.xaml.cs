@@ -25,7 +25,7 @@ namespace ITS_MaxTemp
         public MainWindow()
         {
             InitializeComponent();
-            tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+            tempData = new TemperatureData(@".\Data", "temps.csv");
             DataAccess.InitializeDatabase();
 
         }
