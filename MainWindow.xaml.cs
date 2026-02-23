@@ -1,5 +1,4 @@
-﻿using ITS_MaxTemp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +20,12 @@ namespace ITS_MaxTemp
     /// </summary>
     public partial class MainWindow : Window
     {
-        TemperatureData tempData;
+        //TemperatureData tempData;
         public MainWindow()
         {
             InitializeComponent();
-            tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
-            DataAccess.InitializeDatabase();
+            //tempData = new TemperatureData(@"C:\Users\Patrick\Documents\Gruppenprojekt\ITS_MaxTemp\Data", "temps.csv");
+            //DataAccess.InitializeDatabase();
 
         }
     }
