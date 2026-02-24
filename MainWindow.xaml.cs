@@ -70,27 +70,53 @@ namespace ITS_MaxTemp
                 MessageBox.Show("No data available. Please upload a CSV file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             string selectedSensor = SensorComboBox.SelectedItem as string;
+
+            // Check if sensor is selected
+            if (string.IsNullOrEmpty(selectedSensor))
+            {
+                MessageBox.Show("Please select a sensor first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             DateTime? fromDate = FromDatePicker.SelectedDate;
             DateTime? toDate = ToDatePicker.SelectedDate;
 
-            Console.WriteLine($"Sensor: {selectedSensor}\nFrom: {fromDate}\nTo: {toDate}", "Evaluate Data");
+            Console.WriteLine($"Sensor: {selectedSensor}\nFrom: {fromDate}\nTo: {toDate}");
             float? sensorValue;
             DateTime? dateValue;
 
             if (fromDate.HasValue && toDate.HasValue)
             {
-                // Add 23:59:59 to toDate to include the entire day
+                if (fromDate.Value > toDate.Value)
+                {
+                    MessageBox.Show("'From' date must be before 'To' date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 DateTime toDateEndOfDay = toDate.Value.Date.AddDays(1).AddSeconds(-1);
                 (sensorValue, dateValue) = DataAccess.getMaxSensorValue(selectedSensor, fromDate.Value, toDateEndOfDay);
+            }
+            else if (fromDate.HasValue || toDate.HasValue)
+            {
+                MessageBox.Show("Please set both 'From' and 'To' dates, or leave both empty for all data.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
             else
             {
                 (sensorValue, dateValue) = DataAccess.getMaxSensorValue(selectedSensor);
             }
 
-            TemperatureTextBlock.Text = $"{sensorValue} °C";
-            DateTextBlock.Text = dateValue.ToString();
+            if (sensorValue.HasValue && dateValue.HasValue)
+            {
+                TemperatureTextBlock.Text = $"{sensorValue.Value:F1} °C";
+                DateTextBlock.Text = $"gemessen am {dateValue.Value:dd.MM.yyyy HH:mm}";
+            }
+            else
+            {
+                TemperatureTextBlock.Text = "Keine Daten";
+                DateTextBlock.Text = "Keine Daten für den gewählten Zeitraum gefunden";
+            }
         }
 
         private void AddSensorsToComboBox()
