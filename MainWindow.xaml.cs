@@ -80,7 +80,9 @@ namespace ITS_MaxTemp
 
             if (fromDate.HasValue && toDate.HasValue)
             {
-                (sensorValue, dateValue) = DataAccess.getMaxSensorValue(selectedSensor, fromDate.Value, toDate.Value);
+                // Add 23:59:59 to toDate to include the entire day
+                DateTime toDateEndOfDay = toDate.Value.Date.AddDays(1).AddSeconds(-1);
+                (sensorValue, dateValue) = DataAccess.getMaxSensorValue(selectedSensor, fromDate.Value, toDateEndOfDay);
             }
             else
             {
