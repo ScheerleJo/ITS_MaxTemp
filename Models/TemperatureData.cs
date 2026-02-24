@@ -48,8 +48,8 @@ namespace ITS_MaxTemp.Models
 
         private void ParseData()
         {
-            Regex sensorPattern = new Regex("S*");
-            Regex temperaturePattern = new Regex("[0-9]+\\.[0-9]+");
+            Regex sensorPattern = new Regex("^S[0-9DB]+$");
+            Regex temperaturePattern = new Regex("^[0-9]+\\.[0-9]+$");
 
             foreach (var line in rawData)
             {
@@ -58,15 +58,15 @@ namespace ITS_MaxTemp.Models
                 string sensor = "";
                 DateTime dateTime = DateTime.Now;
                 float temperature = 0.0f;
-                foreach (var data in split)
+                foreach (var data in split) 
                 {
-                    if (sensorPattern.IsMatch(data))
-                    {
-                        sensor = data;
-                    }
-                    else if (temperaturePattern.IsMatch(data))
+                    if (temperaturePattern.IsMatch(data))
                     {
                         float.TryParse(data, out temperature);
+                    }
+                    else if (sensorPattern.IsMatch(data))
+                    {
+                        sensor = data;
                     }
                     else
                     {
