@@ -62,7 +62,9 @@ namespace ITS_MaxTemp.Models
                 {
                     if (temperaturePattern.IsMatch(data))
                     {
-                        float.TryParse(data, out temperature);
+                        
+                        float.TryParse(data, System.Globalization.NumberStyles.Float,
+                            System.Globalization.CultureInfo.InvariantCulture, out temperature);
                     }
                     else if (sensorPattern.IsMatch(data))
                     {

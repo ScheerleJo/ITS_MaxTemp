@@ -10,13 +10,13 @@ namespace ITS_MaxTemp.Models
     {
         private string sensor;
         private DateTime time;
-        private double temperature;
+        private float temperature;
 
         public string Sensor { get => sensor; }
         public DateTime Time { get => time; }
-        public double Temperature { get => temperature; }
+        public float Temperature { get => temperature; }
 
-        public DataSet(string sensor, DateTime time, double temperature)
+        public DataSet(string sensor, DateTime time, float temperature)
         {
             this.sensor = sensor;
             this.time = time;
