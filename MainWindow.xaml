@@ -32,32 +32,40 @@
                 <ComboBoxItem Content="Zuerst Daten importieren..." IsEnabled="False" IsSelected="True"/>
             </ComboBox>
 
-            <StackPanel Orientation="Horizontal" 
-                        Margin="0,0,0,24">
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,12">
                 <StackPanel>
-                    <TextBlock Text="Von" 
+                    <TextBlock Text="Von"
                                Margin="0,0,0,4"/>
                     <DatePicker x:Name="FromDatePicker"
-                                Margin="0,4,0,0" 
-                                MinHeight="32" 
-                                MinWidth="154"/>
+                                Margin="0,4,0,0"
+                                MinHeight="32"
+                                MinWidth="154"
+                                IsTodayHighlighted="True"/>
                 </StackPanel>
 
                 <StackPanel Margin="12,0,0,0">
-                    <TextBlock Text="Bis" 
+                    <TextBlock Text="Bis"
                                Margin="0,0,0,4"/>
                     <DatePicker x:Name="ToDatePicker"
-                                Margin="0,4,0,0" 
-                                MinHeight="32" 
-                                MinWidth="154"/>
+                                Margin="0,4,0,0"
+                                MinHeight="32"
+                                MinWidth="154"
+                                IsTodayHighlighted="True"/>
                 </StackPanel>
             </StackPanel>
 
-            <Button Content="Daten auswerten" 
+            <Button Content="Filter zurücksetzen"
+                    Click="ClearFilter_Click"
+                    MinHeight="32"
+                    MinWidth="320"
+                    Margin="0,0,0,12"/>
+
+            <Button Content="Daten auswerten"
                     Click="EvaluateDataClick"
-                    Style="{StaticResource AccentButtonStyle}" 
-                    MinHeight="36" 
-                    MinWidth="320" 
+                    Style="{StaticResource AccentButtonStyle}"
+                    MinHeight="36"
+                    MinWidth="320"
                     Margin="0,0,0,28"/>
 
             <TextBlock Text="Geladene Datei:" 

@@ -70,21 +70,36 @@ namespace ITS_MaxTemp
                 MessageBox.Show("No data available. Please upload a CSV file first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             
             ((Button)sender).Focus();
 
+            FromDatePicker.GetBindingExpression(System.Windows.Controls.DatePicker.SelectedDateProperty)?.UpdateSource();
+            ToDatePicker.GetBindingExpression(System.Windows.Controls.DatePicker.SelectedDateProperty)?.UpdateSource();
+
             string selectedSensor = SensorComboBox.SelectedItem as string;
 
-            // Check if sensor is selected
+            
             if (string.IsNullOrEmpty(selectedSensor))
             {
                 MessageBox.Show("Please select a sensor first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
+            
             DateTime? fromDate = FromDatePicker.SelectedDate;
             DateTime? toDate = ToDatePicker.SelectedDate;
+
+           
+            if (string.IsNullOrWhiteSpace(FromDatePicker.Text))
+            {
+                fromDate = null;
+                FromDatePicker.SelectedDate = null;
+            }
+            if (string.IsNullOrWhiteSpace(ToDatePicker.Text))
+            {
+                toDate = null;
+                ToDatePicker.SelectedDate = null;
+            }
 
             Console.WriteLine($"Sensor: {selectedSensor}\nFrom: {fromDate}\nTo: {toDate}");
             float? sensorValue;
@@ -124,6 +139,14 @@ namespace ITS_MaxTemp
             
             TemperatureTextBlock.UpdateLayout();
             DateTextBlock.UpdateLayout();
+        }
+
+        private void ClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            FromDatePicker.SelectedDate = null;
+            ToDatePicker.SelectedDate = null;
+            FromDatePicker.Text = "";
+            ToDatePicker.Text = "";
         }
 
         private void AddSensorsToComboBox()
