@@ -71,6 +71,9 @@ namespace ITS_MaxTemp
                 return;
             }
 
+            
+            ((Button)sender).Focus();
+
             string selectedSensor = SensorComboBox.SelectedItem as string;
 
             // Check if sensor is selected
@@ -117,6 +120,10 @@ namespace ITS_MaxTemp
                 TemperatureTextBlock.Text = "Keine Daten";
                 DateTextBlock.Text = "Keine Daten für den gewählten Zeitraum gefunden";
             }
+
+            
+            TemperatureTextBlock.UpdateLayout();
+            DateTextBlock.UpdateLayout();
         }
 
         private void AddSensorsToComboBox()
