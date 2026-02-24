@@ -29,12 +29,7 @@
                       MinHeight="32" 
                       MinWidth="320"
                       SelectedIndex="0">
-                <ComboBoxItem Content="S1"/>
-                <ComboBoxItem Content="S2"/>
-                <ComboBoxItem Content="S3"/>
-                <ComboBoxItem Content="S4"/>
-                <ComboBoxItem Content="SB"/>
-                <ComboBoxItem Content="SD"/>
+                <ComboBoxItem Content="Zuerst Daten importieren..." IsEnabled="False" IsSelected="True"/>
             </ComboBox>
 
             <StackPanel Orientation="Horizontal" 
@@ -124,8 +119,7 @@
                     Text="gemessen am 04.02.2026 14:30"
                     FontSize="20"
                     Margin="0,20,0,0"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    HorizontalAlignment="Center" />
 
             </StackPanel>
         </StackPanel>
