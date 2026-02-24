@@ -31,7 +31,9 @@ namespace ITS_MaxTemp.Models
         {
             try
             {
-                using (StreamReader sr = new StreamReader(filePath+ @"\" + fileName))
+                if (fileName != "") filePath = Path.Combine(filePath, fileName);
+
+                using (StreamReader sr = new StreamReader(filePath))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -61,8 +63,7 @@ namespace ITS_MaxTemp.Models
                 foreach (var data in split) 
                 {
                     if (temperaturePattern.IsMatch(data))
-                    {
-                        
+                    { 
                         float.TryParse(data, System.Globalization.NumberStyles.Float,
                             System.Globalization.CultureInfo.InvariantCulture, out temperature);
                     }
@@ -75,6 +76,7 @@ namespace ITS_MaxTemp.Models
                         dateTime = DateTime.Parse(data);
                     }
                 }
+                //Console.WriteLine($"Sensor: {sensor}, Time: {dateTime}, Temperature: {temperature}");
                 dataSet = new DataSet(sensor, dateTime, temperature);
                 dataSets.Add(dataSet);
             }
