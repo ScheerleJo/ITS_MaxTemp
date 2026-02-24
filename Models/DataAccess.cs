@@ -167,7 +167,7 @@ namespace ITS_MaxTemp
                     {
                         if (reader.Read())
                         {
-                            return (reader.GetFloat(0), reader.GetDateTime(1));
+                            return ((float)reader.GetDouble(0), reader.GetDateTime(1));
                         }
                     }
                 }
@@ -194,7 +194,7 @@ namespace ITS_MaxTemp
                     {
                         if (reader.Read())
                         {
-                            return (reader.GetFloat(0), reader.GetDateTime(1));
+                            return ((float)reader.GetDouble(0), reader.GetDateTime(1));
                         }
                     }
                 }
