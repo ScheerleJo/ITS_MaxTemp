@@ -19,7 +19,7 @@ namespace ITS_MaxTemp.Models
         public List<string> RawData { get { return rawData; } }
         public List<DataSet> DataSets { get { return dataSets; } }
 
-        public TemperatureData(string filePath, string fileName)
+        public TemperatureData(string filePath, string fileName = "")
         {
             this.filePath = filePath;
             this.fileName = fileName;
@@ -31,7 +31,9 @@ namespace ITS_MaxTemp.Models
         {
             try
             {
-                using (StreamReader sr = new StreamReader(filePath+ @"\" + fileName))
+                if (fileName != "") filePath = Path.Combine(filePath, fileName);
+
+                using (StreamReader sr = new StreamReader(filePath))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -48,8 +50,8 @@ namespace ITS_MaxTemp.Models
 
         private void ParseData()
         {
-            Regex sensorPattern = new Regex("S*");
-            Regex temperaturePattern = new Regex("[0-9]+\\.[0-9]+");
+            Regex sensorPattern = new Regex("^S[0-9DB]+$");
+            Regex temperaturePattern = new Regex("^[0-9]+\\.[0-9]+$");
 
             foreach (var line in rawData)
             {
@@ -58,21 +60,23 @@ namespace ITS_MaxTemp.Models
                 string sensor = "";
                 DateTime dateTime = DateTime.Now;
                 float temperature = 0.0f;
-                foreach (var data in split)
+                foreach (var data in split) 
                 {
-                    if (sensorPattern.IsMatch(data))
+                    if (temperaturePattern.IsMatch(data))
+                    { 
+                        float.TryParse(data, System.Globalization.NumberStyles.Float,
+                            System.Globalization.CultureInfo.InvariantCulture, out temperature);
+                    }
+                    else if (sensorPattern.IsMatch(data))
                     {
                         sensor = data;
-                    }
-                    else if (temperaturePattern.IsMatch(data))
-                    {
-                        float.TryParse(data, out temperature);
                     }
                     else
                     {
                         dateTime = DateTime.Parse(data);
                     }
                 }
+                //Console.WriteLine($"Sensor: {sensor}, Time: {dateTime}, Temperature: {temperature}");
                 dataSet = new DataSet(sensor, dateTime, temperature);
                 dataSets.Add(dataSet);
             }
