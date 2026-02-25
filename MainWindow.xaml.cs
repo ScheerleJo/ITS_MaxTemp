@@ -92,10 +92,14 @@ namespace ITS_MaxTemp
         }
 
         private void AddSensorsToComboBox()
-        {
-            SensorComboBox.Items.Clear(); // clear items, to add actual sensors
-            SensorComboBox.ItemsSource = DataAccess.getSensorNames();
-            SensorComboBox.SelectedIndex = 0;
+        { 
+            if (DataAccess.getSensorNames() != null)
+            {
+                SensorComboBox.Items.Clear(); // clear items, to add actual sensors
+                SensorComboBox.ItemsSource = DataAccess.getSensorNames();
+                SensorComboBox.SelectedIndex = 0;
+                FilePath.Text = "Daten wurden aus der Datenbank geladen.";
+            } 
         }
     }
 }
