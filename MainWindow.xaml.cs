@@ -31,7 +31,10 @@ namespace ITS_MaxTemp
             DataAccess.InitializeDatabase();
 
             //Add sensor names to ComboBox, if Data is already available
-            AddSensorsToComboBox();
+            SensorComboBox.Items.Clear(); // clear items, to add actual sensors
+            SensorComboBox.ItemsSource = DataAccess.getSensorNames();
+            SensorComboBox.SelectedIndex = 0;
+            FilePath.Text = "Daten wurden aus der Datenbank geladen.";
         }
 
         private void setFilePath() {
@@ -60,7 +63,8 @@ namespace ITS_MaxTemp
             DataAccess.clearTable(); // clear table -> no duplicates
             DataAccess.AddData(tempData);
 
-            AddSensorsToComboBox();
+            SensorComboBox.ItemsSource = DataAccess.getSensorNames(); //replace items with actual sensors
+            SensorComboBox.SelectedIndex = 0;
         }
 
         private void EvaluateDataClick(object sender, RoutedEventArgs e)
@@ -89,13 +93,6 @@ namespace ITS_MaxTemp
 
             TemperatureTextBlock.Text = $"{sensorValue} °C";
             DateTextBlock.Text = dateValue.ToString();
-        }
-
-        private void AddSensorsToComboBox()
-        {
-            SensorComboBox.Items.Clear(); // clear items, to add actual sensors
-            SensorComboBox.ItemsSource = DataAccess.getSensorNames();
-            SensorComboBox.SelectedIndex = 0;
         }
     }
 }

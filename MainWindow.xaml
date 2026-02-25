@@ -64,7 +64,7 @@
                        FontSize="12" 
                        Foreground="{DynamicResource TextFillColorTertiaryBrush}" 
                        Margin="0,0,0,8"/>
-            <TextBlock Text="temps.csv" 
+            <TextBlock Text="Keine Datei hochgeladen." 
                        FontSize="12" 
                        FontWeight="Bold"
                        Margin="0,0,0,12"

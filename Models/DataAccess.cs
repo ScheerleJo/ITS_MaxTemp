@@ -95,7 +95,6 @@ namespace ITS_MaxTemp
                 MessageBox.Show($"Error importing to Database: {e.Message}");
                 return false;
             }
-
             return true;
         }
 
@@ -115,8 +114,6 @@ namespace ITS_MaxTemp
                 using (var cmd = new SQLiteCommand(select, db))
                 {
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    Debug.WriteLine($"Anzahl der Einträge in tempData: {count}");
-
                     if (count == 0) return true;
                 }
             }
@@ -126,11 +123,7 @@ namespace ITS_MaxTemp
         public static List<String> getSensorNames()
         {
             List<String> sensorNames = new List<string>();
-            if (checkIfTableEmpty())
-            {
-                Debug.WriteLine("Die Tabelle tempData ist leer.");
-                return null;
-            }
+            if (checkIfTableEmpty()) return null;
             using (var db = new SQLiteConnection(connectionString))
             {
                 db.Open();
